@@ -1,0 +1,38 @@
+MixColumns Identidad
+
+M
+
+DF 2E D5 86
+4B C2 40 17
+72 A1 6A B5
+47 88 98 18
+
+MI
+
+DF 2E D5 86
+A4 C2 40 17
+72 A1 6A B5
+47 88 98 18
+
+MJ
+
+DF 2E D5 86
+4B C2 40 17
+72 A1 6A B5
+47 88 87 18
+
+MIJ
+
+DF 2E D5 86
+A4 C2 40 17
+72 A1 6A B5
+47 88 87 18
+
+Modifica únicamente un byte, que corresponde al cambio en el mensaje original
+
+Conclusión:
+
+No comentar ninguno -> cambiar 1 bit en el mensaje cambia 16 bytes en el cifrado
+Comentar SubBytes -> cambiar 1 bit en el mensaje cambia 4 bytes en el cifrado
+Comentar ShiftRows -> cambiar 1 bit en el mensaje cambia 4 bytes en el cifrado todos en la misma columna
+Comentar MixColumns -> cambiar 1 bit en el mensaje cambia 1 bytes en el cifrado

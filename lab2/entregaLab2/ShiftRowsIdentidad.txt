@@ -1,0 +1,31 @@
+ShifRows identidad
+
+M
+
+A8 C3 5B 3A
+CB 06 5A 24
+1C 93 FC B5
+A0 1E DD 56
+
+MI
+
+A8 C3 04 3A
+CB 06 24 24
+1C 93 BF B5
+A0 1E E2 56
+
+MJ
+
+BA C3 5B 3A
+B0 06 5A 24
+09 93 FC B5
+02 1E DD 56
+
+MIJ
+
+BA C3 04 3A
+B0 06 24 24
+09 93 BF B5
+02 1E E2 56
+
+Al quitar el shift rows, al modificar un bit el cambio no se propaga al resto de columnas y se vuelve más predecible

@@ -1,0 +1,13 @@
+a value: 36
+Time spent in function gp_product_p(a, 0x02) = 8e-06
+Time spent in function gp_product_t(a, 0x02) = 2e-06
+Time spent in function gp_product_p(a, 0x03) = 5e-06
+Time spent in function gp_product_t(a, 0x03) = 9.99999999999e-07
+Time spent in function gp_product_p(a, 0x09) = 4e-06
+Time spent in function gp_product_t(a, 0x09) = 1e-06
+Time spent in function gp_product_p(a, 0x0B) = 3e-06
+Time spent in function gp_product_t(a, 0x0B) = 1e-06
+Time spent in function gp_product_p(a, 0x0D) = 3e-06
+Time spent in function gp_product_t(a, 0x0D) = 9.99999999999e-07
+Time spent in function gp_product_p(a, 0x0E) = 1.2e-05
+Time spent in function gp_product_t(a, 0x0E) = 9.99999999999e-07

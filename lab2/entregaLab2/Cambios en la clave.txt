@@ -1,0 +1,67 @@
+Cambiando Clave
+
+M original  clave K:
+
+9B 0A 4E 4F
+B9 E7 E5 7E
+4E A2 FE F5
+95 7C E9 A3
+
+M original clave K modificada
+
+B2 5B 37 F5
+1F 4C A7 4D
+54 3A F2 AF
+51 DF 7D 76
+
+Cambian todos
+
+M clave K sin SubBytes
+
+66 19 E0 32
+A0 3F 65 3B
+52 A0 2C 93
+4F 64 A7 34
+
+M clave K modificada sin SubBytes
+
+49 A5 48 E4
+3D 29 A3 F4
+4C D4 1C 69
+01 D6 5B B5
+
+En principio cambia todo
+
+
+M clave K sin ShiftRows
+
+A8 C3 5B 3A
+CB 06 5A 24
+1C 93 FC B5
+A0 1E DD 56
+
+M clave K modificada sin ShiftRows
+
+B8 63 27 3D
+30 A4 0C 37
+83 82 63 A0
+75 E6 A0 41
+
+
+
+M clave K sin MixColumns
+
+DF 2E D5 86
+4B C2 40 17
+72 A1 6A B5
+47 88 98 18
+
+M clave K modificada sin MixColumns
+
+DC 56 DF EE
+E1 E4 64 42
+BE 8A 50 C0
+C3 AA 67 DE
+
+
+
