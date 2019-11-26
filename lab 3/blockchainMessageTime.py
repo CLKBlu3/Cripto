@@ -102,7 +102,8 @@ class transaction:
 		#luego firmar con sign de rsakey
 		self.public_key = rsa_public_key(RSAKey) #clau publica RSA corresponent a RSAKey (clau RSA amb la que es firma la transaccio)
 		self.message = message #documet que es signa a la transaccio, representat per un enter
-		self.signature = RSAKey.sign(message) #signatura del missatge feta amb el RSAKey representada per un enter
+		#CANVIAR AQUI DE SIGN A SIGN_SLOW QUAN CONVINGUI
+		self.signature = RSAKey.sign_slow(message) #signatura del missatge feta amb el RSAKey representada per un enter
 		
 	def verify(self):
 		'''
@@ -112,7 +113,7 @@ class transaction:
 		return self.public_key.verify(self.message, self.signature)
 		
 class rsa_key:
-	def __init__(self, bits_module=512, e=2**16+1):
+	def __init__(self, bits_module=2048, e=2**16+1):
 		'''
 		genera clau RSA de 2048 bits i exponent 2**16+1 per defecte
 		'''
@@ -123,7 +124,7 @@ class rsa_key:
 		phi_n = (self.primeP - 1) * (self.primeQ - 1)
 		self.modulus = self.primeP * self.primeQ #enter -> n = p*q
 		#sympy gcdex(a,b) a la pos 0 retorna a**-1 mod (b)
-		self.privateExponent = sympy.gcdex(self.publicExponent, phi_n)[0] #enter equivalent a d (referencia a les diapos)
+		self.privateExponent = sympy.gcdex(self.publicExponent, phi_n)[0] % phi_n #enter equivalent a d (referencia a les diapos)
 		self.privateExponentModulusPhiP = self.privateExponent % (self.primeP - 1) #congruent amb privateExponent modul prime P - 1, enter
 		self.privateExponentModulusPhiQ = self.privateExponent % (self.primeQ - 1)  #congruent amb privatExponent modul Prime Q - 1, enter
 		self.inverseQModulusP = sympy.gcdex(self.primeQ, self.primeP)[0] #invers de primeQ^-1 modul primeP, enter
@@ -159,7 +160,7 @@ class rsa_key:
 		retorna un enter que es la signatura del "message", feta amb la clau RSA sense fer servir el TXR
 		'''
 		start = time.clock()
-		mFinal = pow(message, self.privateExponent, self.modulus) #(message**self.privateExponent) % self.modulus
+		mFinal = pow(message, int(self.privateExponent), self.modulus) #(message**self.privateExponent) % self.modulus
 		elapsed = time.clock()
 		self.signTime = (elapsed - start)
 		return mFinal
@@ -232,7 +233,7 @@ def main():
 		trans = transaction(i*4321+1, aver)
 		listblocks.add_block(trans)
 		totalSignTime += aver.signTime
-	print("Time spent in signing with TXR with a 512 bits key: ")
+	print("Time spent in signing with slow sign with a 2048 bits key: ")
 	print(str(totalSignTime))
 	
 main()	

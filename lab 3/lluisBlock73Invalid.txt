@@ -1,0 +1,8 @@
+Block invalidated, previous block hash value 
+115792089237316195423570985008687907853269984665640564039457584007913129639937
+block verified?: 
+False
+Time spent in block generation with a 2048 bits key: 
+1412.116243
+list verified: 
+False
