@@ -112,10 +112,11 @@ class transaction:
 		return self.public_key.verify(self.message, self.signature)
 		
 class rsa_key:
-	def __init__(self, bits_module=2048, e=2**16+1):
+	def __init__(self, bits_module=512, e=2**16+1):
 		'''
 		genera clau RSA de 2048 bits i exponent 2**16+1 per defecte
 		'''
+		self.signTime = 0
 		self.bits_module = bits_module
 		self.publicExponent = e #enter
 		self.generate_primePQ()
@@ -143,10 +144,13 @@ class rsa_key:
 		https://www.geeksforgeeks.org/weak-rsa-decryption-chinese-remainder-theorem/
 		retorna un enter que es la signatura del "message", feta amb la clau rsa fent servir el TXR
 		'''
+		start = time.clock()
 		m1 = pow(message, int(self.privateExponentModulusPhiP), self.primeP)
 		m2 = pow(message, int(self.privateExponentModulusPhiQ), self.primeQ)
 		h = (self.inverseQModulusP * (m1 - m2)) % self.primeP
 		mFinal = m2 + h * self.primeQ
+		elapsed = time.clock()
+		self.signTime = (elapsed - start)
 		return mFinal
 	
 	def sign_slow(self,message):
@@ -154,7 +158,10 @@ class rsa_key:
 		m^d % n
 		retorna un enter que es la signatura del "message", feta amb la clau RSA sense fer servir el TXR
 		'''
+		start = time.clock()
 		mFinal = pow(message, self.privateExponent, self.modulus) #(message**self.privateExponent) % self.modulus
+		elapsed = time.clock()
+		self.signTime = (elapsed - start)
 		return mFinal
 		
 			
@@ -215,57 +222,17 @@ def gcd(a,b):
 			return gcd(b, a % b)
 		
 def main():
-	start = time.clock()
+	totalSignTime = 0
 	aver = rsa_key()
-	#print(aver.primeP)
-	#print(aver.primeQ)
 	trans = transaction(1234, aver)
 	listblocks = block_chain(trans)
-	'''
-	print('transaction signature: ')
-	print(trans.signature)
-	print('previous block hash: ')
-	print(listblocks.list_of_blocks[-1].previous_block_hash)
-	print('block seed: ')
-	print(listblocks.list_of_blocks[-1].seed)
-	print('block hash: ')
-	print(listblocks.list_of_blocks[-1].block_hash)
-	print('Verified trans? : ')
-	print(listblocks.list_of_blocks[-1].verify_block())
-	print('-------------------------------------------------------------------------------------------------')
-	'''
+	totalSignTime += aver.signTime
 	for i in range(0,99):
 		aver = rsa_key()
-		#print(aver.primeP)
-		#print(aver.primeQ)
 		trans = transaction(i*4321+1, aver)
-		#print(trans.verify())
-		#bloc = block().genesis(trans)
 		listblocks.add_block(trans)
-		'''
-		print('transaction signature: ')
-		print(trans.signature)
-		print('previous block hash: ')
-		print(listblocks.list_of_blocks[-1].previous_block_hash)
-		print('block seed: ')
-		print(listblocks.list_of_blocks[-1].seed)
-		print('block hash: ')
-		print(listblocks.list_of_blocks[-1].block_hash)
-		print('Verified trans? : ')
-		print(listblocks.list_of_blocks[-1].verify_block())
-		print('----------------------------------------------------------------------------------------------------')
-		'''
-		
-	#Canviar -27 per 100-XX on XX es el DNI de l'alumne
-	listblocks.list_of_blocks[-27].previous_block_hash = (2**256)+1
-	print("Block invalidated, previous block hash value ")
-	print(listblocks.list_of_blocks[-27].previous_block_hash)
-	print("block verified?: ")
-	print(listblocks.list_of_blocks[-27].verify_block())
-	elapsed = time.clock()
-	print("Time spent in block generation with a 2048 bits key: ")
-	print(str(elapsed-start))
-	print("list verified: ")
-	print(listblocks.verify())
+		totalSignTime += aver.signTime
+	print("Time spent in signing with TXR with a 512 bits key: ")
+	print(str(totalSignTime))
 	
 main()	
