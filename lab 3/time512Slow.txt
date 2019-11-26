@@ -1,0 +1,2 @@
+Time spent in signing with slow sign with a 512 bits key: 
+0.0658849999999116

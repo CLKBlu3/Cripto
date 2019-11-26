@@ -102,8 +102,7 @@ class transaction:
 		#luego firmar con sign de rsakey
 		self.public_key = rsa_public_key(RSAKey) #clau publica RSA corresponent a RSAKey (clau RSA amb la que es firma la transaccio)
 		self.message = message #documet que es signa a la transaccio, representat per un enter
-		#CANVIAR AQUI DE SIGN A SIGN_SLOW QUAN CONVINGUI
-		self.signature = RSAKey.sign_slow(message) #signatura del missatge feta amb el RSAKey representada per un enter
+		self.signature = RSAKey.sign(message) #signatura del missatge feta amb el RSAKey representada per un enter
 		
 	def verify(self):
 		'''
@@ -225,13 +224,11 @@ def gcd(a,b):
 def main():
 	totalSignTime = 0
 	aver = rsa_key()
-	trans = transaction(1234, aver)
-	listblocks = block_chain(trans)
+	aver.sign_slow(1234)
 	totalSignTime += aver.signTime
 	for i in range(0,99):
 		aver = rsa_key()
-		trans = transaction(i*4321+1, aver)
-		listblocks.add_block(trans)
+		aver.sign_slow(i*4321+1)
 		totalSignTime += aver.signTime
 	print("Time spent in signing with slow sign with a 2048 bits key: ")
 	print(str(totalSignTime))

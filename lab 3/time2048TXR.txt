@@ -1,0 +1,2 @@
+Time spent in signing with TXR with a 2048 bits key: 
+0.7119620000002534
